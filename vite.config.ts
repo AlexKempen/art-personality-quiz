@@ -3,7 +3,6 @@ import react from "@vitejs/plugin-react";
 // Support for svg image react components
 import svgrPlugin from "vite-plugin-svgr";
 
-// https://vitejs.dev/config/
 export default defineConfig({
     plugins: [react(), svgrPlugin()],
     build: {
@@ -13,10 +12,5 @@ export default defineConfig({
     },
     server: {
         strictPort: true,
-        hmr: {
-            host: "localhost",
-            protocol: "ws",
-            port: 24678,
-        },
     },
 });
