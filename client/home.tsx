@@ -1,57 +1,29 @@
-import { useCallback, useEffect, useState } from "react";
 import crow from "./public/crow.png";
 
-function computeFieldTransform(canvasHeight: number, canvasWidth: number, scale: number) {
-    const imageHeight = 374;
-    const imageWidth = 269;
-    const heightToWidth = imageWidth / imageHeight;
-    const widthToHeight = imageHeight / imageWidth;
-
-    const height = Math.min(
-        canvasHeight,
-        canvasWidth * widthToHeight
-    ) * scale;
-    const width = height * heightToWidth;
-
-    // const PIXEL = height / imageHeight;
-
-    const xShift = (canvasWidth - width) / 2;
-    const yShift = (canvasHeight - height) / 2;
-    return { left: xShift, top: yShift, height };
-}
-
 export function Home(): JSX.Element {
-    const [width, setWidth] = useState<number>(0);
-    const [height, setHeight] = useState<number>(0);
-
-    const resizeCanvas = useCallback(() => {
-        const div = document.getElementById("home");
-        if (div) {
-            if (height !== div.offsetHeight ||
-                width !== div.offsetWidth) {
-                setHeight(div.offsetHeight);
-                setWidth(div.offsetWidth);
-            }
-        }
-        // callback doesn't need to be recalculated when height/width change
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    useEffect(() => {
-        resizeCanvas();
-        window.addEventListener("resize", resizeCanvas);
-        return () => window.removeEventListener("resize", resizeCanvas);
-    }, [resizeCanvas]);
-
-    const transform = computeFieldTransform(height, width, 0.5);
-    console.log(transform);
-
-    return (<div id="home">
-        <img
-            id="crow-img"
-            src={crow}
-            alt={""}
-            style={{ ...transform }}
-        />
-    </div>);
+    return (
+        <div id="home" className="w-screen h-screen text-white">
+            <div className="container mx-auto flex px-5 py-24 items-center justify-center flex-col">
+                <img className="lg:w-1/5 md:w-2/5 w-4/6 mb-10 object-cover object-center" alt="" src={crow} />
+                <div className="text-center lg:w-5/12 w-full">
+                    <h1 className="my-4 text-3xl leading-tight mb-12">
+                        Take our quiz to find your perfect art!
+                    </h1>
+                    {/* <p className="text-2xl mb-8">
+                        Ship products 5-10x faster with your existing design tools, tech stacks & workflows!
+                    </p> */}
+                    <div className="flex justify-center mx-auto">
+                        <button
+                            className="hover:underline bg-white text-gray-800 font-bold rounded-full  py-4 px-8">
+                            Take the quiz
+                        </button>
+                        <button
+                            className="ml-4 hover:underline bg-white text-gray-800 font-bold rounded-full  py-4 px-8">
+                            Go back
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div >
+    );
 }
