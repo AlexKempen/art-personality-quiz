@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import crow from "./public/crow.png";
 
 export function Home(): JSX.Element {
+    const navigate = useNavigate();
     return (
         <div id="home" className="w-screen h-screen text-white">
             <div className="container mx-auto flex px-5 py-24 items-center justify-center flex-col">
@@ -14,10 +16,14 @@ export function Home(): JSX.Element {
                     </p> */}
                     <div className="flex justify-center mx-auto">
                         <button
+                            onClick={() => { navigate("/quiz"); }}
                             className="hover:underline bg-white text-gray-800 font-bold rounded-full  py-4 px-8">
                             Take the quiz
                         </button>
                         <button
+                            onClick={() => {
+                                location.href = "https://crowmuseum.org/";
+                            }}
                             className="ml-4 hover:underline bg-white text-gray-800 font-bold rounded-full  py-4 px-8">
                             Go back
                         </button>
